@@ -20,12 +20,20 @@ then open <http://localhost:8000>.
 
 ### How it works in the UI
 1. **Base image** — pick the photo.
-2. **Strava overlay** — pick the exported PNG (transparent background). It appears
-   centered.
+2. **Strava overlay** — pick the exported PNG (transparent background). A **crop
+   step** opens: tap **Auto-trim** to snap the crop to the content (Strava exports
+   have lots of empty space top/bottom), or drag the edges/corners to fine-tune,
+   then **Use crop**. Transparency is preserved (unlike the iPhone Photos crop,
+   which flattens it onto white). You can reopen it later with the **Crop** button.
 3. **Move** — drag with the mouse, or your finger on mobile.
 4. **Resize** — the *Size* slider, the mouse wheel, or a two-finger pinch on mobile.
    It caps when the overlay fills the frame and won't shrink to nothing.
-5. **Download PNG** — exports at the base photo's full native resolution.
+5. **Shade** — Strava exports are white, which disappears on bright photos. The
+   *Shade* slider fades the overlay from white to black, and **Flip W/B** snaps
+   between the two in one tap. (Only the colour is changed — the transparent
+   background stays transparent.)
+6. **Download PNG** — exports at the base photo's full native resolution, with the
+   current shade baked in.
 
 ## Deploy (optional)
 
