@@ -1,0 +1,182 @@
+:root {
+  --orange: #fc5200;
+  --bg: #0f1115;
+  --panel: #1a1d24;
+  --text: #f2f4f8;
+  --muted: #9aa3b2;
+  --border: #2a2f3a;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+/* The hidden attribute must always win over the display rules below. */
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.topbar {
+  padding: 20px 16px 8px;
+  text-align: center;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.topbar h1::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  vertical-align: middle;
+}
+.tagline {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* --- Controls --- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 0 16px;
+}
+.controls--bottom { margin-top: 16px; }
+
+.filebtn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: border-color 0.15s, background 0.15s;
+  user-select: none;
+}
+.filebtn:hover { border-color: var(--orange); }
+.filebtn input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.filebtn.is-set {
+  border-color: var(--orange);
+  background: rgba(252, 82, 0, 0.12);
+}
+/* The overlay picker is disabled until a base image exists */
+#overlayLabel.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s, opacity 0.15s;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.btn--ghost {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 500;
+}
+.btn--ghost:hover { filter: none; border-color: var(--orange); }
+
+.slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 240px;
+  min-width: 200px;
+  max-width: 380px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.slider input[type="range"] {
+  flex: 1;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+
+/* --- Placeholder --- */
+.placeholder {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+.placeholder p { margin: 6px 0; }
+.placeholder .hint { font-size: 0.85rem; opacity: 0.8; }
+
+/* --- Stage (interactive preview) --- */
+.stage {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  line-height: 0;               /* kill inline-image gap */
+  border-radius: var(--radius);
+  overflow: hidden;
+  touch-action: none;           /* let us handle drag/pinch, no page scroll */
+  user-select: none;
+  -webkit-user-select: none;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+.stage #baseImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  /* width is set from JS as a % of the stage */
+  touch-action: none;
+  will-change: left, top, width;
+}
+.overlay.dragging { cursor: grabbing; }
+
+@media (max-width: 520px) {
+  .controls { gap: 8px; }
+  .filebtn, .btn { padding: 9px 14px; font-size: 0.9rem; }
+}
